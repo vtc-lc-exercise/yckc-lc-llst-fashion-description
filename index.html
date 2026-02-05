@@ -544,7 +544,7 @@ const ASPECTS = [
       blanks: {'Accessory': 'Noun', 'location': 'Noun Phrase', 'purpose': 'Verb Phrase'} },
     { text: "[Accessory] [be] attached because it [reason].", 
       blanks: {'Accessory': 'Noun', 'reason': 'Complete Clause'} },
-    { text: "The [location] is decorated with [accessory].", 
+    { text: "The [location] [is] decorated with [accessory].", 
       blanks: {'location': 'Noun Phrase', 'accessory': 'Noun'} },
     { text: "[Accessory] [be] used to enhance the [feature].", 
       blanks: {'Accessory': 'Noun', 'feature': 'Noun'} }
@@ -676,6 +676,15 @@ function autoBeVerb(subj) {
   return "was";
 }
 
+function autoIsVerb(subj) {
+  if(!subj) return "is";
+  const s = subj.trim().toLowerCase();
+  if(s.endsWith('s') && !s.endsWith('ss')) return "are";
+  const plurals = ['men','women','children','people','feet','teeth'];
+  if(plurals.includes(s)) return "are";
+  return "is";
+}
+
 function fixSentence(s) {
   s = s.trim(); if(!s) return "";
   s = s.charAt(0).toUpperCase() + s.slice(1);
@@ -697,15 +706,37 @@ function updatePreview(){
     if(!v) full = false;
     let k = inp.getAttribute('data-key');
     if(!subjVal && v) subjVal = v;
+    
+    // SMART CASING LOGIC
+    let isStart = p.text.indexOf(`[${k}]`) === 0;
+    let displayV = v;
+    if(v) {
+        if(isStart) {
+            // Force Uppercase at Start
+            displayV = v.charAt(0).toUpperCase() + v.slice(1);
+        } else {
+            // Force Lowercase in middle (fix mobile auto-caps), unless "Valentine"
+            if(!v.toLowerCase().includes("valentine")) {
+                displayV = v.toLowerCase();
+            }
+        }
+    }
+    
     let re = new RegExp(`\\[${k}\\]`, 'i');
-    txt = txt.replace(re, v ? `<b style="color:#6c5ce7">${v}</b>` : '___');
-    rawTxt = rawTxt.replace(re, v);
+    txt = txt.replace(re, v ? `<b style="color:#6c5ce7">${displayV}</b>` : '___');
+    rawTxt = rawTxt.replace(re, displayV); // Also apply casing to raw text
   });
 
   if (rawTxt.includes("[be]")) {
     let verb = autoBeVerb(subjVal);
     txt = txt.replace("[be]", `<b style="color:#0984e3">${verb}</b>`);
     rawTxt = rawTxt.replace("[be]", verb);
+  }
+  
+  if (rawTxt.includes("[is]")) {
+    let verb = autoIsVerb(subjVal);
+    txt = txt.replace("[is]", `<b style="color:#0984e3">${verb}</b>`);
+    rawTxt = rawTxt.replace("[is]", verb);
   }
 
   rawTxt = fixSentence(rawTxt);
