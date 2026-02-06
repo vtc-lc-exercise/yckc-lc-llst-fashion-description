@@ -129,6 +129,16 @@
     border: 2px solid #a29bfe; background: #f8f9fa; color: #2d3436; font-weight: bold; cursor: pointer;
   }
 
+  /* Sample Box */
+  .sample-box {
+    background: #fff0f6; border: 2px dashed #fd79a8; border-radius: 16px;
+    padding: 20px; margin-bottom: 25px; display: none; text-align: left;
+    animation: fadeIn 0.3s ease;
+  }
+  .sample-box.show { display: block; }
+  .sample-text { font-family: 'Georgia', serif; font-style: italic; color: #555; line-height: 1.6; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(-10px)} to{opacity:1; transform:translateY(0)} }
+
   /* Hints */
   .grammar-hint {
     font-size: 13px; color: #636e72; margin-bottom: 15px; display: block;
@@ -146,7 +156,7 @@
     text-shadow: 0 2px 4px rgba(255,255,255,0.8);
   }
 
-  /* 🤖 CHATBOT UI - EDCAFE INTEGRATION */
+  /* 🤖 CHATBOT UI */
   .chat-mask {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.5); z-index: 9990; display: none;
@@ -198,69 +208,36 @@
     font-size: 1.1rem; font-weight: 800; color: #2d3436;
     margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #6c5ce7;
   }
-  .vocab-table {
-    width: 100%; border-collapse: collapse;
-  }
-  .vocab-row {
-    border-bottom: 1px solid #e1e1e1;
-  }
-  .vocab-cell {
-    padding: 12px; width: 50%; vertical-align: top;
-  }
+  .vocab-table { width: 100%; border-collapse: collapse; }
+  .vocab-row { border-bottom: 1px solid #e1e1e1; }
+  .vocab-cell { padding: 12px; width: 50%; vertical-align: middle; }
   .vocab-cell:first-child { border-right: 1px solid #e1e1e1; }
   .vocab-chinese { font-weight: 800; color: #2d3436; font-size: 15px; }
-  .vocab-english { color: #636e72; font-size: 14px; font-weight: 600; margin-top: 3px; }
+  .vocab-english { 
+    color: #636e72; font-size: 14px; font-weight: 600; margin-top: 3px; 
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .vocab-pos { color: #a29bfe; font-size: 12px; margin-left: 4px; font-weight: normal; font-style: italic; }
+  
+  .audio-btn {
+    background: #f1f2f6; border: none; border-radius: 50%;
+    width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 14px; color: #6c5ce7; transition: background 0.2s; margin-left: 8px;
+  }
 
   .hidden { display: none !important; }
   .screen { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
-  /* ============ PRINT STYLES (CRITICAL FIX) ============ */
+  /* PRINT STYLES */
   @media print {
-    /* Reset Body & Page */
     @page { margin: 1cm; size: auto; }
-    
-    body {
-      background: white !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      min-height: 0 !important;
-      height: auto !important;
-      display: block !important;
-    }
-    
-    /* Reset Container */
-    .container {
-      display: block !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      width: 100% !important;
-      height: auto !important;
-    }
-
-    /* Hide UI */
-    .fab-wrapper, .chat-mask, .chat-drawer, .btn-hero, .progress-info, 
-    .hero-card, .progress-bar, #page-landing, #page-guide, #page-pattern, #page-final, #bgHearts {
-      display: none !important;
-    }
-
-    /* Show Vocab & Format */
+    body { background: white !important; margin: 0 !important; padding: 0 !important; display: block !important; }
+    .container { display: block !important; padding: 0 !important; margin: 0 !important; width: 100% !important; }
+    .audio-btn, .fab-wrapper, .chat-mask, .chat-drawer, .btn-hero, .progress-info, 
+    .hero-card, .progress-bar, #page-landing, #page-guide, #page-pattern, #page-final, #bgHearts { display: none !important; }
     #page-vocab { display: block !important; }
-    #vocabPDFContent { 
-      display: block !important;
-      box-shadow: none !important;
-      border: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      width: 100% !important;
-    }
-
-    /* Force Colors */
-    * {
-      color: black !important;
-      background: transparent !important;
-      text-shadow: none !important;
-    }
-    
+    #vocabPDFContent { display: block !important; box-shadow: none !important; border: none !important; padding: 0 !important; width: 100% !important; }
+    * { color: black !important; background: transparent !important; text-shadow: none !important; }
     .vocab-section-title { border-bottom: 2px solid #000 !important; }
     .vocab-row { border-bottom: 1px solid #ccc !important; }
     .vocab-cell:first-child { border-right: 1px solid #ccc !important; }
@@ -315,12 +292,33 @@
     </div>
   </div>
 
-  <!-- PAGE 2: Guide -->
+  <!-- PAGE 2: Guide (WITH SAMPLE) -->
   <div id="page-guide" class="screen hidden">
     <div class="card">
       <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:10px;">Select Aspects 📝</h2>
-      <p style="color:#636e72; margin-bottom:25px; font-size:1.1rem;">Pick <strong>at least 4</strong> to continue.</p>
+      <p style="color:#636e72; margin-bottom:20px; font-size:1.1rem;">
+        Pick <strong>at least 4</strong> features to describe your tee.
+      </p>
       
+      <!-- SAMPLE TOGGLE BUTTON -->
+      <div style="text-align:center; margin-bottom:20px;">
+        <button onclick="toggleSample()" style="background:#fff0f6; color:#e84393; border:2px solid #e84393; padding:10px 20px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:14px;">
+          👁️ See an Example
+        </button>
+      </div>
+
+      <!-- SAMPLE CONTENT (HIDDEN BY DEFAULT) -->
+      <div id="sampleBox" class="sample-box">
+        <strong style="color:#d63031; display:block; margin-bottom:10px;">🌟 Example Description:</strong>
+        <p class="sample-text">
+          "This design is inspired by <b>sweet romance</b>, which represents <b>happiness</b>. 
+          <b>Pink</b> was chosen because it represents <b>cute love</b>. 
+          The main element is <b>a heart shape</b> on the <b>chest</b>. 
+          <b>Cotton</b> is used because it is <b>soft and comfortable</b>."
+        </p>
+        <small style="color:#999; display:block; margin-top:10px;">(This is what your final text will look like!)</small>
+      </div>
+
       <div id="aspectList" class="aspect-grid"></div>
       
       <div style="margin-top:30px; text-align:center;">
@@ -390,27 +388,27 @@
   <!-- PAGE 5: Vocab List -->
   <div id="page-vocab" class="screen hidden">
     <div class="card" id="vocabPDFContent">
-      <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:30px; text-align:center;">📚 Vocabulary Reference Guide</h2>
+      <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:30px; text-align:center;">📚 Vocabulary Reference</h2>
       
       <!-- THEMES -->
       <div class="vocab-section">
         <div class="vocab-section-title">💡 Common Themes</div>
         <table class="vocab-table">
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">浪漫</div><div class="vocab-english">romantic</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">愛</div><div class="vocab-english">love</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">浪漫</div><div class="vocab-english">romantic <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('romantic')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">愛</div><div class="vocab-english">love <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('love')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">友情</div><div class="vocab-english">friendship</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">熱情</div><div class="vocab-english">passion</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">友情</div><div class="vocab-english">friendship <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('friendship')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">熱情</div><div class="vocab-english">passion <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('passion')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">開心</div><div class="vocab-english">joy</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">溫暖</div><div class="vocab-english">warmth</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">優雅</div><div class="vocab-english">elegance <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('elegance')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">創意</div><div class="vocab-english">creativity <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('creativity')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">甜美</div><div class="vocab-english">sweet</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">型</div><div class="vocab-english">cool</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">甜美</div><div class="vocab-english">sweet <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('sweet')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">型</div><div class="vocab-english">cool <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('cool')">🔊</button></div></td>
           </tr>
         </table>
       </div>
@@ -420,20 +418,16 @@
         <div class="vocab-section-title">🎨 Common Colours</div>
         <table class="vocab-table">
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">粉紅</div><div class="vocab-english">pink</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">紅</div><div class="vocab-english">red</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">粉紅</div><div class="vocab-english">pink <span class="vocab-pos">(n/adj)</span> <button class="audio-btn" onclick="speakVocab('pink')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">鮮紅</div><div class="vocab-english">scarlet <span class="vocab-pos">(n/adj)</span> <button class="audio-btn" onclick="speakVocab('scarlet')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">白</div><div class="vocab-english">white</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">紫</div><div class="vocab-english">purple</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">淡彩</div><div class="vocab-english">pastel <span class="vocab-pos">(n/adj)</span> <button class="audio-btn" onclick="speakVocab('pastel')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">金屬色</div><div class="vocab-english">metallic <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('metallic')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">黑</div><div class="vocab-english">black</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">藍</div><div class="vocab-english">blue</div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">金</div><div class="vocab-english">gold</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">銀</div><div class="vocab-english">silver</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">海軍藍</div><div class="vocab-english">navy blue <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('navy blue')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">米色</div><div class="vocab-english">beige <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('beige')">🔊</button></div></td>
           </tr>
         </table>
       </div>
@@ -443,24 +437,20 @@
         <div class="vocab-section-title">❤️ Common Elements</div>
         <table class="vocab-table">
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">心</div><div class="vocab-english">heart</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">花</div><div class="vocab-english">flower</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">心形</div><div class="vocab-english">heart shape <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('heart shape')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">口號/標語</div><div class="vocab-english">slogan <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('slogan')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">蝴蝶結</div><div class="vocab-english">bow</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">絲帶</div><div class="vocab-english">ribbon</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">圖案</div><div class="vocab-english">pattern <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('pattern')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">圖形</div><div class="vocab-english">graphic <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('graphic')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">星</div><div class="vocab-english">star</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">箭</div><div class="vocab-english">arrow</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">絲帶</div><div class="vocab-english">ribbon <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('ribbon')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">玫瑰</div><div class="vocab-english">rose <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('rose')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">信</div><div class="vocab-english">letter</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">玫瑰</div><div class="vocab-english">rose</div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">情人節</div><div class="vocab-english">Valentine's Day</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">裝飾</div><div class="vocab-english">decoration</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">丘比特</div><div class="vocab-english">Cupid <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('Cupid')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">裝飾</div><div class="vocab-english">decoration <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('decoration')">🔊</button></div></td>
           </tr>
         </table>
       </div>
@@ -470,20 +460,20 @@
         <div class="vocab-section-title">🧶 Fabrics & Materials</div>
         <table class="vocab-table">
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">棉</div><div class="vocab-english">cotton</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">絲</div><div class="vocab-english">silk</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">棉</div><div class="vocab-english">cotton <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('cotton')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">聚酯纖維</div><div class="vocab-english">polyester <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('polyester')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">牛仔</div><div class="vocab-english">denim</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">麻</div><div class="vocab-english">linen</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">牛仔布</div><div class="vocab-english">denim <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('denim')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">針織布</div><div class="vocab-english">knitted fabric <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('knitted fabric')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">絲絨</div><div class="vocab-english">velvet</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">蕾絲</div><div class="vocab-english">lace</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">絲絨</div><div class="vocab-english">velvet <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('velvet')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">蕾絲</div><div class="vocab-english">lace <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('lace')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">羊毛</div><div class="vocab-english">wool</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">色丁</div><div class="vocab-english">satin</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">皮革</div><div class="vocab-english">leather <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('leather')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">雪紡</div><div class="vocab-english">chiffon <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('chiffon')">🔊</button></div></td>
           </tr>
         </table>
       </div>
@@ -493,24 +483,20 @@
         <div class="vocab-section-title">✂️ Common Techniques</div>
         <table class="vocab-table">
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">縫</div><div class="vocab-english">sewing</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">黐 / 膠著</div><div class="vocab-english">gluing</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">縫紉</div><div class="vocab-english">sewing <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('sewing')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">拼布</div><div class="vocab-english">patchwork <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('patchwork')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">剪</div><div class="vocab-english">cutting</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">聯針 / 鎖針</div><div class="vocab-english">stitching</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">剪裁</div><div class="vocab-english">cutting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('cutting')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">染色</div><div class="vocab-english">dyeing <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('dyeing')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">畫</div><div class="vocab-english">painting</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">素描 / 繪畫</div><div class="vocab-english">drawing</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">手繪</div><div class="vocab-english">hand-painting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('hand-painting')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">編織</div><div class="vocab-english">knitting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('knitting')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">印 / 印花</div><div class="vocab-english">printing</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">打結</div><div class="vocab-english">knotting</div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">刺繡</div><div class="vocab-english">embroidery</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">珠片縫綴</div><div class="vocab-english">sequin embellishment</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">印花</div><div class="vocab-english">printing <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('printing')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">打結</div><div class="vocab-english">knotting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('knotting')">🔊</button></div></td>
           </tr>
         </table>
       </div>
@@ -520,20 +506,20 @@
         <div class="vocab-section-title">✨ Useful Adjectives</div>
         <table class="vocab-table">
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">軟</div><div class="vocab-english">soft</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">舒服</div><div class="vocab-english">comfortable</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">柔軟</div><div class="vocab-english">soft <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('soft')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">舒適</div><div class="vocab-english">comfortable <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('comfortable')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">透氣</div><div class="vocab-english">breathable</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">閃 / 光澤</div><div class="vocab-english">shiny</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">時尚</div><div class="vocab-english">stylish <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('stylish')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">閃亮</div><div class="vocab-english">shiny <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('shiny')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">滑</div><div class="vocab-english">smooth</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">粗</div><div class="vocab-english">rough</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">休閒</div><div class="vocab-english">casual <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('casual')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">獨特</div><div class="vocab-english">unique <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('unique')">🔊</button></div></td>
           </tr>
           <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">有質感</div><div class="vocab-english">textured</div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">輕</div><div class="vocab-english">lightweight</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">吸睛</div><div class="vocab-english">eye-catching <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('eye-catching')">🔊</button></div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">輕身</div><div class="vocab-english">lightweight <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('lightweight')">🔊</button></div></td>
           </tr>
         </table>
       </div>
@@ -557,7 +543,7 @@ const ASPECTS = [
       blanks: {'theme': 'Noun', 'reason': 'Complete Clause (e.g. it is sweet)'} },
     { text: "[Theme] was chosen as the theme to express [feeling].", 
       blanks: {'Theme': 'Noun', 'feeling': 'Noun'} },
-    { text: "The concept comes from [source], symbolising [symbol].", 
+    { text: "The concept comes from [source], symbolizing [symbol].", 
       blanks: {'source': 'Noun', 'symbol': 'Noun'} }
   ]},
   { id: 'elements', icon: '❤️', title: 'Elements', desc: 'What items added?', patterns: [
@@ -642,6 +628,12 @@ function updateSelectCount(){
   txt.innerText = `Selected: ${c}/4`;
   if(c >= 4) { btn.disabled=false; txt.style.color='#00b894'; err.style.display='none'; }
   else { btn.disabled=true; txt.style.color='#d63031'; err.style.display='block'; err.innerText=`Please select ${4-c} more!`; }
+}
+
+function toggleSample() {
+  const box = document.getElementById('sampleBox');
+  if(box.classList.contains('show')) box.classList.remove('show');
+  else box.classList.add('show');
 }
 
 // Navigation
@@ -754,10 +746,8 @@ function updatePreview(){
     let displayV = v;
     if(v) {
         if(isStart) {
-            // Force Uppercase at Start
             displayV = v.charAt(0).toUpperCase() + v.slice(1);
         } else {
-            // Force Lowercase in middle, unless "Valentine"
             if(!v.toLowerCase().includes("valentine")) {
                 displayV = v.toLowerCase();
             }
@@ -796,6 +786,15 @@ function downloadTxt(){
   let a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download='MyDesign.txt'; a.click();
 }
 
+/* --- AUDIO FUNCTIONS --- */
+function speakVocab(word) {
+  window.speechSynthesis.cancel();
+  let u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-GB';
+  u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+
 function speakText(){
   const txt = document.getElementById('finalParagraph').value;
   const status = document.getElementById('audioStatus');
@@ -832,7 +831,6 @@ function toggleChat() {
   }
 }
 
-// Show Tooltip once
 setTimeout(() => document.getElementById('fabTooltip').classList.add('show'), 2000);
 
 /* --- NATIVE PRINT --- */
