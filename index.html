@@ -292,33 +292,30 @@
     </div>
   </div>
 
-  <!-- PAGE 2: Guide (WITH SAMPLE) -->
+  <!-- PAGE 2: Guide -->
   <div id="page-guide" class="screen hidden">
     <div class="card">
       <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:10px;">Select Aspects 📝</h2>
       <p style="color:#636e72; margin-bottom:20px; font-size:1.1rem;">
         Pick <strong>at least 4</strong> features to describe your tee.
       </p>
-      
-      <!-- SAMPLE TOGGLE BUTTON -->
+
       <div style="text-align:center; margin-bottom:20px;">
         <button onclick="toggleSample()" style="background:#fff0f6; color:#e84393; border:2px solid #e84393; padding:10px 20px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:14px;">
           👁️ See an Example
         </button>
       </div>
 
-      <!-- SAMPLE CONTENT (HIDDEN BY DEFAULT) -->
       <div id="sampleBox" class="sample-box">
         <strong style="color:#d63031; display:block; margin-bottom:10px;">🌟 Example Description:</strong>
         <p class="sample-text">
           "This design is inspired by <b>sweet romance</b>, which represents <b>happiness</b>. 
-          <b>Pink</b> was chosen because it represents <b>cute love</b>. 
+          The colour <b>Pink</b> symbolises <b>cute love</b>. 
           The main element is <b>a heart shape</b> on the <b>chest</b>. 
           <b>Cotton</b> is used because it is <b>soft and comfortable</b>."
         </p>
-        <small style="color:#999; display:block; margin-top:10px;">(This is what your final text will look like!)</small>
       </div>
-
+      
       <div id="aspectList" class="aspect-grid"></div>
       
       <div style="margin-top:30px; text-align:center;">
@@ -385,143 +382,45 @@
     </div>
   </div>
 
-  <!-- PAGE 5: Vocab List -->
+  <!-- PAGE 5: Vocab List (EXPANDED & LOCALIZED) -->
   <div id="page-vocab" class="screen hidden">
     <div class="card" id="vocabPDFContent">
       <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:30px; text-align:center;">📚 Vocabulary Reference</h2>
       
-      <!-- THEMES -->
+      <!-- THEMES (18 items) -->
       <div class="vocab-section">
-        <div class="vocab-section-title">💡 Common Themes</div>
-        <table class="vocab-table">
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">浪漫</div><div class="vocab-english">romantic <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('romantic')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">愛</div><div class="vocab-english">love <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('love')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">友情</div><div class="vocab-english">friendship <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('friendship')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">熱情</div><div class="vocab-english">passion <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('passion')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">優雅</div><div class="vocab-english">elegance <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('elegance')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">創意</div><div class="vocab-english">creativity <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('creativity')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">甜美</div><div class="vocab-english">sweet <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('sweet')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">型</div><div class="vocab-english">cool <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('cool')">🔊</button></div></td>
-          </tr>
-        </table>
+        <div class="vocab-section-title">💡 Themes (Inspiration)</div>
+        <table class="vocab-table" id="vocab-theme"></table>
       </div>
 
-      <!-- COLOURS -->
+      <!-- COLOURS (18 items) -->
       <div class="vocab-section">
-        <div class="vocab-section-title">🎨 Common Colours</div>
-        <table class="vocab-table">
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">粉紅</div><div class="vocab-english">pink <span class="vocab-pos">(n/adj)</span> <button class="audio-btn" onclick="speakVocab('pink')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">鮮紅</div><div class="vocab-english">scarlet <span class="vocab-pos">(n/adj)</span> <button class="audio-btn" onclick="speakVocab('scarlet')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">淡彩</div><div class="vocab-english">pastel <span class="vocab-pos">(n/adj)</span> <button class="audio-btn" onclick="speakVocab('pastel')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">金屬色</div><div class="vocab-english">metallic <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('metallic')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">海軍藍</div><div class="vocab-english">navy blue <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('navy blue')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">米色</div><div class="vocab-english">beige <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('beige')">🔊</button></div></td>
-          </tr>
-        </table>
+        <div class="vocab-section-title">🎨 Colours</div>
+        <table class="vocab-table" id="vocab-colour"></table>
       </div>
 
-      <!-- ELEMENTS -->
+      <!-- ELEMENTS (18 items) -->
       <div class="vocab-section">
-        <div class="vocab-section-title">❤️ Common Elements</div>
-        <table class="vocab-table">
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">心形</div><div class="vocab-english">heart shape <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('heart shape')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">口號/標語</div><div class="vocab-english">slogan <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('slogan')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">圖案</div><div class="vocab-english">pattern <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('pattern')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">圖形</div><div class="vocab-english">graphic <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('graphic')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">絲帶</div><div class="vocab-english">ribbon <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('ribbon')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">玫瑰</div><div class="vocab-english">rose <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('rose')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">丘比特</div><div class="vocab-english">Cupid <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('Cupid')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">裝飾</div><div class="vocab-english">decoration <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('decoration')">🔊</button></div></td>
-          </tr>
-        </table>
+        <div class="vocab-section-title">❤️ Elements & Shapes</div>
+        <table class="vocab-table" id="vocab-element"></table>
       </div>
 
-      <!-- FABRICS & MATERIALS -->
+      <!-- FABRICS (18 items) -->
       <div class="vocab-section">
         <div class="vocab-section-title">🧶 Fabrics & Materials</div>
-        <table class="vocab-table">
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">棉</div><div class="vocab-english">cotton <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('cotton')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">聚酯纖維</div><div class="vocab-english">polyester <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('polyester')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">牛仔布</div><div class="vocab-english">denim <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('denim')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">針織布</div><div class="vocab-english">knitted fabric <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('knitted fabric')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">絲絨</div><div class="vocab-english">velvet <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('velvet')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">蕾絲</div><div class="vocab-english">lace <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('lace')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">皮革</div><div class="vocab-english">leather <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('leather')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">雪紡</div><div class="vocab-english">chiffon <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('chiffon')">🔊</button></div></td>
-          </tr>
-        </table>
+        <table class="vocab-table" id="vocab-fabric"></table>
       </div>
 
-      <!-- TECHNIQUES -->
+      <!-- TECHNIQUES (18 items) -->
       <div class="vocab-section">
-        <div class="vocab-section-title">✂️ Common Techniques</div>
-        <table class="vocab-table">
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">縫紉</div><div class="vocab-english">sewing <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('sewing')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">拼布</div><div class="vocab-english">patchwork <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('patchwork')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">剪裁</div><div class="vocab-english">cutting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('cutting')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">染色</div><div class="vocab-english">dyeing <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('dyeing')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">手繪</div><div class="vocab-english">hand-painting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('hand-painting')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">編織</div><div class="vocab-english">knitting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('knitting')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">印花</div><div class="vocab-english">printing <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('printing')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">打結</div><div class="vocab-english">knotting <span class="vocab-pos">(n)</span> <button class="audio-btn" onclick="speakVocab('knotting')">🔊</button></div></td>
-          </tr>
-        </table>
+        <div class="vocab-section-title">✂️ Techniques</div>
+        <table class="vocab-table" id="vocab-tech"></table>
       </div>
 
-      <!-- ADJECTIVES FOR DESCRIPTION -->
+      <!-- ADJECTIVES (18 items) -->
       <div class="vocab-section">
-        <div class="vocab-section-title">✨ Useful Adjectives</div>
-        <table class="vocab-table">
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">柔軟</div><div class="vocab-english">soft <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('soft')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">舒適</div><div class="vocab-english">comfortable <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('comfortable')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">時尚</div><div class="vocab-english">stylish <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('stylish')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">閃亮</div><div class="vocab-english">shiny <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('shiny')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">休閒</div><div class="vocab-english">casual <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('casual')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">獨特</div><div class="vocab-english">unique <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('unique')">🔊</button></div></td>
-          </tr>
-          <tr class="vocab-row">
-            <td class="vocab-cell"><div class="vocab-chinese">吸睛</div><div class="vocab-english">eye-catching <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('eye-catching')">🔊</button></div></td>
-            <td class="vocab-cell"><div class="vocab-chinese">輕身</div><div class="vocab-english">lightweight <span class="vocab-pos">(adj)</span> <button class="audio-btn" onclick="speakVocab('lightweight')">🔊</button></div></td>
-          </tr>
-        </table>
+        <div class="vocab-section-title">✨ Adjectives</div>
+        <table class="vocab-table" id="vocab-adj"></table>
       </div>
 
       <div style="display:grid; gap:15px; margin-top:30px; justify-content:center;">
@@ -534,7 +433,77 @@
 </div>
 
 <script>
-/* --- FULL PATTERN LIST --- */
+/* --- DATA FOR VOCAB LIST (Expanded 16+ each) --- */
+const VOCAB_DATA = {
+  theme: [
+    ['浪漫','Romantic','adj'], ['愛','Love','n'], ['友情','Friendship','n'], ['熱情','Passion','n'],
+    ['優雅','Elegance','n'], ['創意','Creativity','n'], ['甜美','Sweetness','n'], ['型格','Coolness','n'],
+    ['快樂','Happiness','n'], ['回憶','Memory','n'], ['大自然','Nature','n'], ['自由','Freedom','n'],
+    ['夢想','Dream','n'], ['魔法','Magic','n'], ['活力','Energy','n'], ['和諧','Harmony','n'],
+    ['神秘','Mystery','n'], ['復古','Vintage','n']
+  ],
+  colour: [
+    ['粉紅','Pink','n/adj'], ['紅','Red','n/adj'], ['白','White','n/adj'], ['紫','Purple','n/adj'],
+    ['黑','Black','n/adj'], ['藍','Blue','n/adj'], ['金','Gold','n/adj'], ['銀','Silver','n/adj'],
+    ['海軍藍','Navy blue','n'], ['米色','Beige','n'], ['淡彩','Pastel','n/adj'], ['金屬色','Metallic','adj'],
+    ['奶油色','Cream','n'], ['灰','Grey','n'], ['酒紅','Burgundy','n'], ['桃紅','Peach','n'],
+    ['薄荷綠','Mint green','n'], ['彩虹色','Rainbow','n']
+  ],
+  element: [
+    ['心形','Heart shape','n'], ['花','Flower','n'], ['蝴蝶結','Bow','n'], ['絲帶','Ribbon','n'],
+    ['星','Star','n'], ['箭','Arrow','n'], ['信','Letter','n'], ['玫瑰','Rose','n'],
+    ['丘比特','Cupid','n'], ['標語','Slogan','n'], ['圖案','Pattern','n'], ['圖形','Graphic','n'],
+    ['標誌','Logo','n'], ['條紋','Stripe','n'], ['圓點','Dot','n'], ['翅膀','Wing','n'],
+    ['卡通人物','Cartoon character','n'], ['簽名','Signature','n']
+  ],
+  fabric: [
+    ['棉','Cotton','n'], ['絲','Silk','n'], ['牛仔布','Denim','n'], ['麻','Linen','n'],
+    ['絲絨','Velvet','n'], ['蕾絲','Lace','n'], ['羊毛','Wool','n'], ['色丁','Satin','n'],
+    ['聚酯纖維','Polyester','n'], ['皮革','Leather','n'], ['雪紡','Chiffon','n'], ['針織布','Knitted fabric','n'],
+    ['尼龍','Nylon','n'], ['帆布','Canvas','n'], ['網布','Mesh','n'], ['抓毛','Fleece','n'],
+    ['彈性纖維','Spandex','n'], ['歐根紗','Organza','n']
+  ],
+  tech: [
+    ['縫紉','Sewing','n'], ['黏貼','Gluing','n'], ['剪裁','Cutting','n'], ['聯針','Stitching','n'],
+    ['繪畫','Painting','n'], ['素描','Drawing','n'], ['印花','Printing','n'], ['打結','Knotting','n'],
+    ['刺繡','Embroidery','n'], ['拼布','Patchwork','n'], ['染色','Dyeing','n'], ['編織','Knitting','n'],
+    ['釘珠','Beading','n'], ['貼布繡','Appliqué','n'], ['草圖','Sketching','n'], ['熨燙','Ironing','n'],
+    ['摺疊','Folding','n'], ['層疊','Layering','n']
+  ],
+  adj: [
+    ['柔軟','Soft','adj'], ['舒適','Comfortable','adj'], ['透氣','Breathable','adj'], ['閃亮','Shiny','adj'],
+    ['滑身','Smooth','adj'], ['粗糙','Rough','adj'], ['有質感','Textured','adj'], ['輕身','Lightweight','adj'],
+    ['時尚','Stylish','adj'], ['休閒','Casual','adj'], ['獨特','Unique','adj'], ['引人注目','Eye-catching','adj'],
+    ['耐用','Durable','adj'], ['有彈性','Stretchy','adj'], ['經典','Classic','adj'], ['現代','Modern','adj'],
+    ['溫暖','Warm','adj'], ['華麗','Fancy','adj']
+  ]
+};
+
+function renderVocab(){
+  Object.keys(VOCAB_DATA).forEach(key => {
+    let t = document.getElementById('vocab-'+key);
+    let rows = VOCAB_DATA[key];
+    let html = '';
+    for(let i=0; i<rows.length; i+=2){
+      html += '<tr class="vocab-row">';
+      // Left Col
+      let d1 = rows[i];
+      html += `<td class="vocab-cell"><div class="vocab-chinese">${d1[0]}</div><div class="vocab-english">${d1[1]} <span class="vocab-pos">(${d1[2]})</span> <button class="audio-btn" onclick="speakVocab('${d1[1].replace(/'/g,"\\'")}')">🔊</button></div></td>`;
+      // Right Col
+      if(i+1 < rows.length){
+        let d2 = rows[i+1];
+        html += `<td class="vocab-cell"><div class="vocab-chinese">${d2[0]}</div><div class="vocab-english">${d2[1]} <span class="vocab-pos">(${d2[2]})</span> <button class="audio-btn" onclick="speakVocab('${d2[1].replace(/'/g,"\\'")}')">🔊</button></div></td>`;
+      } else {
+        html += `<td class="vocab-cell"></td>`;
+      }
+      html += '</tr>';
+    }
+    t.innerHTML = html;
+  });
+}
+renderVocab(); // Init
+
+/* --- FULL PATTERN LIST (BRITISH SPELLING) --- */
 const ASPECTS = [
   { id: 'theme', icon: '💡', title: 'Theme', desc: 'Inspiration & Meaning', patterns: [
     { text: "This design is inspired by [concept], which represents [meaning].", 
@@ -543,7 +512,7 @@ const ASPECTS = [
       blanks: {'theme': 'Noun', 'reason': 'Complete Clause (e.g. it is sweet)'} },
     { text: "[Theme] was chosen as the theme to express [feeling].", 
       blanks: {'Theme': 'Noun', 'feeling': 'Noun'} },
-    { text: "The concept comes from [source], symbolizing [symbol].", 
+    { text: "The concept comes from [source], symbolising [symbol].", 
       blanks: {'source': 'Noun', 'symbol': 'Noun'} }
   ]},
   { id: 'elements', icon: '❤️', title: 'Elements', desc: 'What items added?', patterns: [
