@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Cupid's Tee Party of Love 💘</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   :root {
     --primary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
@@ -193,25 +192,78 @@
   }
   .fab:active { transform: scale(0.9); }
 
-  /* VOCAB LIST PDF */
-  .vocab-section { margin-bottom: 25px; page-break-inside: avoid; }
+  /* VOCAB LIST */
+  .vocab-section { margin-bottom: 30px; page-break-inside: avoid; }
   .vocab-section-title {
     font-size: 1.1rem; font-weight: 800; color: #2d3436;
-    margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e1e1e1;
+    margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #6c5ce7;
   }
-  .vocab-rows { display: table; width: 100%; border-collapse: collapse; }
-  .vocab-row { display: table-row; }
-  .vocab-cell { display: table-cell; padding: 10px; border: 1px solid #e1e1e1; width: 50%; background: #fff; }
+  .vocab-table {
+    width: 100%; border-collapse: collapse;
+  }
+  .vocab-row {
+    border-bottom: 1px solid #e1e1e1;
+  }
+  .vocab-cell {
+    padding: 12px; width: 50%; vertical-align: top;
+  }
+  .vocab-cell:first-child { border-right: 1px solid #e1e1e1; }
   .vocab-chinese { font-weight: 800; color: #2d3436; font-size: 15px; }
-  .vocab-english { color: #636e72; font-size: 14px; font-weight: 600; }
+  .vocab-english { color: #636e72; font-size: 14px; font-weight: 600; margin-top: 3px; }
 
   .hidden { display: none !important; }
   .screen { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
-  /* PDF Print Hide */
+  /* ============ PRINT STYLES (CRITICAL FIX) ============ */
   @media print {
-    body { background: white !important; }
-    .fab-wrapper, .chat-mask, .chat-drawer, .btn-hero { display: none !important; }
+    /* Reset Body & Page */
+    @page { margin: 1cm; size: auto; }
+    
+    body {
+      background: white !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: 0 !important;
+      height: auto !important;
+      display: block !important;
+    }
+    
+    /* Reset Container */
+    .container {
+      display: block !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Hide UI */
+    .fab-wrapper, .chat-mask, .chat-drawer, .btn-hero, .progress-info, 
+    .hero-card, .progress-bar, #page-landing, #page-guide, #page-pattern, #page-final, #bgHearts {
+      display: none !important;
+    }
+
+    /* Show Vocab & Format */
+    #page-vocab { display: block !important; }
+    #vocabPDFContent { 
+      display: block !important;
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+
+    /* Force Colors */
+    * {
+      color: black !important;
+      background: transparent !important;
+      text-shadow: none !important;
+    }
+    
+    .vocab-section-title { border-bottom: 2px solid #000 !important; }
+    .vocab-row { border-bottom: 1px solid #ccc !important; }
+    .vocab-cell:first-child { border-right: 1px solid #ccc !important; }
   }
 </style>
 </head>
@@ -229,13 +281,12 @@
 <!-- Chat Mask -->
 <div class="chat-mask" id="chatMask" onclick="toggleChat()"></div>
 
-<!-- Chat Drawer (Containing EdCafe iFrame) -->
+<!-- Chat Drawer -->
 <div class="chat-drawer" id="chatDrawer">
   <div class="chat-header">
     <span style="font-weight:800; color:#2d3436;">LC x Fashion AI Bot</span>
     <button onclick="toggleChat()" style="border:none; background:none; font-size:20px; cursor:pointer;">✕</button>
   </div>
-  <!-- EDCAFE IFRAME EMBEDDED HERE -->
   <iframe src="https://app.edcafe.ai/chatbots/6984a1243159d0c298af10ba" title="LCxFT" allow="microphone" style="border: none; width: 100%; height: 100%;"></iframe>
 </div>
 
@@ -336,159 +387,159 @@
     </div>
   </div>
 
-  <!-- PAGE 5: Vocab List (PDF-OPTIMIZED) -->
+  <!-- PAGE 5: Vocab List -->
   <div id="page-vocab" class="screen hidden">
     <div class="card" id="vocabPDFContent">
-      <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:25px; text-align:center;">📚 Vocabulary Reference Guide</h2>
+      <h2 style="font-size:2rem; font-weight:900; color:#2d3436; margin-bottom:30px; text-align:center;">📚 Vocabulary Reference Guide</h2>
       
       <!-- THEMES -->
       <div class="vocab-section">
         <div class="vocab-section-title">💡 Common Themes</div>
-        <div class="vocab-rows">
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">浪漫</div><div class="vocab-english">romantic</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">愛</div><div class="vocab-english">love</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">友情</div><div class="vocab-english">friendship</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">熱情</div><div class="vocab-english">passion</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">開心</div><div class="vocab-english">joy</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">溫暖</div><div class="vocab-english">warmth</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">甜美</div><div class="vocab-english">sweet</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">型</div><div class="vocab-english">cool</div></div>
-          </div>
-        </div>
+        <table class="vocab-table">
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">浪漫</div><div class="vocab-english">romantic</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">愛</div><div class="vocab-english">love</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">友情</div><div class="vocab-english">friendship</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">熱情</div><div class="vocab-english">passion</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">開心</div><div class="vocab-english">joy</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">溫暖</div><div class="vocab-english">warmth</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">甜美</div><div class="vocab-english">sweet</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">型</div><div class="vocab-english">cool</div></td>
+          </tr>
+        </table>
       </div>
 
       <!-- COLOURS -->
       <div class="vocab-section">
         <div class="vocab-section-title">🎨 Common Colours</div>
-        <div class="vocab-rows">
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">粉紅</div><div class="vocab-english">pink</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">紅</div><div class="vocab-english">red</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">白</div><div class="vocab-english">white</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">紫</div><div class="vocab-english">purple</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">黑</div><div class="vocab-english">black</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">藍</div><div class="vocab-english">blue</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">金</div><div class="vocab-english">gold</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">銀</div><div class="vocab-english">silver</div></div>
-          </div>
-        </div>
+        <table class="vocab-table">
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">粉紅</div><div class="vocab-english">pink</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">紅</div><div class="vocab-english">red</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">白</div><div class="vocab-english">white</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">紫</div><div class="vocab-english">purple</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">黑</div><div class="vocab-english">black</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">藍</div><div class="vocab-english">blue</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">金</div><div class="vocab-english">gold</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">銀</div><div class="vocab-english">silver</div></td>
+          </tr>
+        </table>
       </div>
 
       <!-- ELEMENTS -->
       <div class="vocab-section">
         <div class="vocab-section-title">❤️ Common Elements</div>
-        <div class="vocab-rows">
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">心</div><div class="vocab-english">heart</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">花</div><div class="vocab-english">flower</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">蝴蝶結</div><div class="vocab-english">bow</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">絲帶</div><div class="vocab-english">ribbon</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">星</div><div class="vocab-english">star</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">箭</div><div class="vocab-english">arrow</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">信</div><div class="vocab-english">letter</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">玫瑰</div><div class="vocab-english">rose</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">情人節</div><div class="vocab-english">Valentine's Day</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">裝飾</div><div class="vocab-english">decoration</div></div>
-          </div>
-        </div>
+        <table class="vocab-table">
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">心</div><div class="vocab-english">heart</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">花</div><div class="vocab-english">flower</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">蝴蝶結</div><div class="vocab-english">bow</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">絲帶</div><div class="vocab-english">ribbon</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">星</div><div class="vocab-english">star</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">箭</div><div class="vocab-english">arrow</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">信</div><div class="vocab-english">letter</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">玫瑰</div><div class="vocab-english">rose</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">情人節</div><div class="vocab-english">Valentine's Day</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">裝飾</div><div class="vocab-english">decoration</div></td>
+          </tr>
+        </table>
       </div>
 
       <!-- FABRICS & MATERIALS -->
       <div class="vocab-section">
         <div class="vocab-section-title">🧶 Fabrics & Materials</div>
-        <div class="vocab-rows">
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">棉</div><div class="vocab-english">cotton</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">絲</div><div class="vocab-english">silk</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">牛仔</div><div class="vocab-english">denim</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">麻</div><div class="vocab-english">linen</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">絲絨</div><div class="vocab-english">velvet</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">蕾絲</div><div class="vocab-english">lace</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">羊毛</div><div class="vocab-english">wool</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">色丁</div><div class="vocab-english">satin</div></div>
-          </div>
-        </div>
+        <table class="vocab-table">
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">棉</div><div class="vocab-english">cotton</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">絲</div><div class="vocab-english">silk</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">牛仔</div><div class="vocab-english">denim</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">麻</div><div class="vocab-english">linen</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">絲絨</div><div class="vocab-english">velvet</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">蕾絲</div><div class="vocab-english">lace</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">羊毛</div><div class="vocab-english">wool</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">色丁</div><div class="vocab-english">satin</div></td>
+          </tr>
+        </table>
       </div>
 
       <!-- TECHNIQUES -->
       <div class="vocab-section">
         <div class="vocab-section-title">✂️ Common Techniques</div>
-        <div class="vocab-rows">
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">縫</div><div class="vocab-english">sewing</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">黐 / 膠著</div><div class="vocab-english">gluing</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">剪</div><div class="vocab-english">cutting</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">聯針 / 鎖針</div><div class="vocab-english">stitching</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">畫</div><div class="vocab-english">painting</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">素描 / 繪畫</div><div class="vocab-english">drawing</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">印 / 印花</div><div class="vocab-english">printing</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">打結</div><div class="vocab-english">knotting</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">刺繡</div><div class="vocab-english">embroidery</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">珠片縫綴</div><div class="vocab-english">sequin embellishment</div></div>
-          </div>
-        </div>
+        <table class="vocab-table">
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">縫</div><div class="vocab-english">sewing</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">黐 / 膠著</div><div class="vocab-english">gluing</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">剪</div><div class="vocab-english">cutting</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">聯針 / 鎖針</div><div class="vocab-english">stitching</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">畫</div><div class="vocab-english">painting</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">素描 / 繪畫</div><div class="vocab-english">drawing</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">印 / 印花</div><div class="vocab-english">printing</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">打結</div><div class="vocab-english">knotting</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">刺繡</div><div class="vocab-english">embroidery</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">珠片縫綴</div><div class="vocab-english">sequin embellishment</div></td>
+          </tr>
+        </table>
       </div>
 
       <!-- ADJECTIVES FOR DESCRIPTION -->
       <div class="vocab-section">
         <div class="vocab-section-title">✨ Useful Adjectives</div>
-        <div class="vocab-rows">
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">軟</div><div class="vocab-english">soft</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">舒服</div><div class="vocab-english">comfortable</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">透氣</div><div class="vocab-english">breathable</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">閃 / 光澤</div><div class="vocab-english">shiny</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">滑</div><div class="vocab-english">smooth</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">粗</div><div class="vocab-english">rough</div></div>
-          </div>
-          <div class="vocab-row">
-            <div class="vocab-cell"><div class="vocab-chinese">有質感</div><div class="vocab-english">textured</div></div>
-            <div class="vocab-cell"><div class="vocab-chinese">輕</div><div class="vocab-english">lightweight</div></div>
-          </div>
-        </div>
+        <table class="vocab-table">
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">軟</div><div class="vocab-english">soft</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">舒服</div><div class="vocab-english">comfortable</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">透氣</div><div class="vocab-english">breathable</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">閃 / 光澤</div><div class="vocab-english">shiny</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">滑</div><div class="vocab-english">smooth</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">粗</div><div class="vocab-english">rough</div></td>
+          </tr>
+          <tr class="vocab-row">
+            <td class="vocab-cell"><div class="vocab-chinese">有質感</div><div class="vocab-english">textured</div></td>
+            <td class="vocab-cell"><div class="vocab-chinese">輕</div><div class="vocab-english">lightweight</div></td>
+          </tr>
+        </table>
       </div>
 
       <div style="display:grid; gap:15px; margin-top:30px; justify-content:center;">
-        <button class="btn-hero" onclick="generateVocabPDF()" style="background:#fd79a8; box-shadow:0 10px 20px rgba(253,121,168,0.3);">📥 Download as PDF</button>
+        <button class="btn-hero" onclick="printVocab()" style="background:#fd79a8; box-shadow:0 10px 20px rgba(253,121,168,0.3);">📥 Download as PDF</button>
         <button class="btn-hero" onclick="goBackFromVocab()" style="background:white; color:#636e72; border:2px solid #eee; box-shadow:none;">Back</button>
       </div>
     </div>
@@ -506,11 +557,11 @@ const ASPECTS = [
       blanks: {'theme': 'Noun', 'reason': 'Complete Clause (e.g. it is sweet)'} },
     { text: "[Theme] was chosen as the theme to express [feeling].", 
       blanks: {'Theme': 'Noun', 'feeling': 'Noun'} },
-    { text: "The concept comes from [source], symbolizing [symbol].", 
+    { text: "The concept comes from [source], symbolising [symbol].", 
       blanks: {'source': 'Noun', 'symbol': 'Noun'} }
   ]},
   { id: 'elements', icon: '❤️', title: 'Elements', desc: 'What items added?', patterns: [
-    { text: "[Element] [be] added to [location] to make it look [adjective].", 
+    { text: "[Element] [is] added to [location] to make it look [adjective].", 
       blanks: {'Element': 'Noun (e.g. A heart)', 'location': 'Noun Phrase (Position)', 'adjective': 'Adjective'} },
     { text: "The main element is [element] on the [location].", 
       blanks: {'element': 'Noun', 'location': 'Noun Phrase (Position)'} },
@@ -520,7 +571,7 @@ const ASPECTS = [
       blanks: {'element': 'Noun', 'location': 'Noun Phrase', 'idea': 'Noun'} }
   ]},
   { id: 'fabric', icon: '🧶', title: 'Fabric', desc: 'Material choice', patterns: [
-    { text: "[Fabric] [be] used because it is [characteristic].", 
+    { text: "[Fabric] [is] used because it is [characteristic].", 
       blanks: {'Fabric': 'Noun (e.g. Cotton)', 'characteristic': 'Adjective (e.g. soft)'} },
     { text: "The main material is [material], making it [quality].", 
       blanks: {'material': 'Noun', 'quality': 'Adjective'} },
@@ -530,7 +581,7 @@ const ASPECTS = [
       blanks: {'fabric': 'Noun', 'benefit': 'Noun (e.g. warmth)'} }
   ]},
   { id: 'colour', icon: '🎨', title: 'Colour', desc: 'Colour choice', patterns: [
-    { text: "[Colour] [be] chosen because it represents [meaning].", 
+    { text: "[Colour] [is] chosen because it represents [meaning].", 
       blanks: {'Colour': 'Noun (e.g. Pink)', 'meaning': 'Noun Phrase'} },
     { text: "The colour [colour] symbolises [concept].", 
       blanks: {'colour': 'Noun', 'concept': 'Noun'} },
@@ -540,19 +591,19 @@ const ASPECTS = [
       blanks: {'colour1': 'Noun', 'colour2': 'Noun', 'effect': 'Noun Phrase'} }
   ]},
   { id: 'accessories', icon: '🎀', title: 'Accessories', desc: 'Decorations', patterns: [
-    { text: "[Accessory] [be] added to [location] to [purpose].", 
+    { text: "[Accessory] [is] added to [location] to [purpose].", 
       blanks: {'Accessory': 'Noun', 'location': 'Noun Phrase', 'purpose': 'Verb Phrase'} },
-    { text: "[Accessory] [be] attached because it [reason].", 
+    { text: "[Accessory] [is] attached because it [reason].", 
       blanks: {'Accessory': 'Noun', 'reason': 'Complete Clause'} },
     { text: "The [location] [is] decorated with [accessory].", 
       blanks: {'location': 'Noun Phrase', 'accessory': 'Noun'} },
-    { text: "[Accessory] [be] used to enhance the [feature].", 
+    { text: "[Accessory] [is] used to enhance the [feature].", 
       blanks: {'Accessory': 'Noun', 'feature': 'Noun'} }
   ]},
   { id: 'techniques', icon: '✂️', title: 'Techniques', desc: 'How you made it', patterns: [
-    { text: "[Technique] [be] used to create [effect] on [part].", 
+    { text: "[Technique] [is] used to create [effect] on [part].", 
       blanks: {'Technique': 'Gerund (-ing)', 'effect': 'Noun Phrase', 'part': 'Noun Phrase'} },
-    { text: "To achieve this look, [technique] [be] applied.", 
+    { text: "To achieve this look, [technique] [is] applied.", 
       blanks: {'technique': 'Gerund (-ing)'} },
     { text: "The [part] was made by [technique].", 
       blanks: {'part': 'Noun Phrase', 'technique': 'Gerund (-ing)'} },
@@ -666,16 +717,7 @@ function loadBlanks(){
   updatePreview();
 }
 
-/* --- LOGIC --- */
-function autoBeVerb(subj) {
-  if(!subj) return "was";
-  const s = subj.trim().toLowerCase();
-  if(s.endsWith('s') && !s.endsWith('ss')) return "were";
-  const plurals = ['men','women','children','people','feet','teeth'];
-  if(plurals.includes(s)) return "were";
-  return "was";
-}
-
+/* --- SMART GRAMMAR & CASING --- */
 function autoIsVerb(subj) {
   if(!subj) return "is";
   const s = subj.trim().toLowerCase();
@@ -715,7 +757,7 @@ function updatePreview(){
             // Force Uppercase at Start
             displayV = v.charAt(0).toUpperCase() + v.slice(1);
         } else {
-            // Force Lowercase in middle (fix mobile auto-caps), unless "Valentine"
+            // Force Lowercase in middle, unless "Valentine"
             if(!v.toLowerCase().includes("valentine")) {
                 displayV = v.toLowerCase();
             }
@@ -724,15 +766,9 @@ function updatePreview(){
     
     let re = new RegExp(`\\[${k}\\]`, 'i');
     txt = txt.replace(re, v ? `<b style="color:#6c5ce7">${displayV}</b>` : '___');
-    rawTxt = rawTxt.replace(re, displayV); // Also apply casing to raw text
+    rawTxt = rawTxt.replace(re, displayV);
   });
 
-  if (rawTxt.includes("[be]")) {
-    let verb = autoBeVerb(subjVal);
-    txt = txt.replace("[be]", `<b style="color:#0984e3">${verb}</b>`);
-    rawTxt = rawTxt.replace("[be]", verb);
-  }
-  
   if (rawTxt.includes("[is]")) {
     let verb = autoIsVerb(subjVal);
     txt = txt.replace("[is]", `<b style="color:#0984e3">${verb}</b>`);
@@ -799,17 +835,9 @@ function toggleChat() {
 // Show Tooltip once
 setTimeout(() => document.getElementById('fabTooltip').classList.add('show'), 2000);
 
-/* --- PDF GENERATION - TABLE-BASED (FIXED) --- */
-function generateVocabPDF(){
-  const element = document.getElementById('vocabPDFContent');
-  const opt = {
-    margin: [10, 10, 10, 10],
-    filename: 'Cupids_Tee_Vocabulary_Reference.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, logging: false },
-    jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
-  };
-  html2pdf().set(opt).from(element).save();
+/* --- NATIVE PRINT --- */
+function printVocab() {
+  window.print();
 }
 </script>
 </body>
